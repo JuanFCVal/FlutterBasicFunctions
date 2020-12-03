@@ -1,8 +1,9 @@
+import 'package:examples/src/providers/menu_provider.dart';
 import 'package:flutter/material.dart';
 
 class HomePageTemp extends StatelessWidget {
   HomePageTemp({Key key}) : super(key: key);
-  final op = ["Uno", "Dos", "tRES"];
+  final op = ["Uno", "Dos", "Tres"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
