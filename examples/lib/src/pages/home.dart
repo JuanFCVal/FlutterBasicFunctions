@@ -1,6 +1,6 @@
-import 'package:examples/src/Utils/icon_string_util.dart';
 import 'package:examples/src/providers/menu_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:examples/src/Utils/icon_string_util.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("a"),
+        title: Text("Componentes"),
       ),
       body: _lista(),
     );
@@ -17,9 +17,11 @@ class HomePage extends StatelessWidget {
 
   Widget _lista() {
     return FutureBuilder(
+      //Future builder tiene 3 estados, cuando carga, cuando busca y cuando no encuentra es para que el app no parezca trabada cuando obtiene info
       future: menuProvider.cargarData(),
       initialData: [],
-      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+        //Snapshot es la información
         return ListView(
           children: _crearItems(snapshot.data, context),
         );
@@ -35,12 +37,8 @@ class HomePage extends StatelessWidget {
           leading: getIcon(element["icon"]),
           trailing: Icon(Icons.keyboard_arrow_right, color: Colors.black),
           onTap: () {
-            //final route = MaterialPageRoute(builder: (context) {
-            //return AlertPage();
-            //});
             Navigator.pushNamed(context, element['ruta']);
           });
-
       opciones..add(widgetTemp)..add(Divider());
     });
     return opciones;
