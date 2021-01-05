@@ -10,6 +10,10 @@ class InputsPage extends StatefulWidget {
 class _InputsPageState extends State<InputsPage> {
   String _name = '';
   String _email = '';
+  String _fecha = "";
+
+  TextEditingController _inputFieldDateController =
+      new TextEditingController(); //Permite asignar un valor seleccionado en otro lugar
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +37,9 @@ class _InputsPageState extends State<InputsPage> {
                 const EdgeInsets.only(top: 20, bottom: 10, right: 20, left: 20),
             child: _crearPassword(),
           ),
+          Divider(),
+          _crearDatePicker(context),
+          Divider(),
           _crearPersona()
         ],
       ),
@@ -103,5 +110,41 @@ class _InputsPageState extends State<InputsPage> {
         suffixIcon: Icon(Icons.security), //Aparece dentro del input al final
       ),
     );
+  }
+
+  _crearDatePicker(BuildContext context) {
+    return TextField(
+      controller:
+          _inputFieldDateController, //Este controlador permite controlar en,
+      enableInteractiveSelection: false, //No se permite copiar datos
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20), //Borde de la caja de texto
+        ),
+        hintText: 'Fecha de nacimiento', //Texto de ejemplo
+        labelText: 'Fecha', //Label
+        suffixIcon:
+            Icon(Icons.calendar_today), //Aparece dentro del input al final
+      ),
+      onTap: () {
+        FocusScope.of(context)
+            .requestFocus(new FocusNode()); //Quitar el foco del TextFild
+        _showDateSelection(context);
+      },
+    );
+  }
+
+  Future _showDateSelection(BuildContext context) async {
+    DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1990),
+        lastDate: DateTime.now());
+    if (picked != null) {
+      setState(() {
+        _fecha = picked.toString();
+        _inputFieldDateController.text = _fecha;
+      });
+    }
   }
 }
