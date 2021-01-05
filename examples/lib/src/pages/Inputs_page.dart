@@ -11,7 +11,8 @@ class _InputsPageState extends State<InputsPage> {
   String _name = '';
   String _email = '';
   String _fecha = "";
-
+  String _poderSeleccionado = "Volar";
+  List<String> _poderes = ["Volar", "Rayox X", "Super fuerza"];
   TextEditingController _inputFieldDateController =
       new TextEditingController(); //Permite asignar un valor seleccionado en otro lugar
   @override
@@ -41,6 +42,11 @@ class _InputsPageState extends State<InputsPage> {
             padding:
                 const EdgeInsets.only(top: 20, bottom: 10, right: 20, left: 20),
             child: _crearDatePicker(context),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.only(top: 20, bottom: 10, right: 20, left: 20),
+            child: _crearComboBox(),
           ),
           Divider(),
           _crearPersona()
@@ -150,5 +156,28 @@ class _InputsPageState extends State<InputsPage> {
         _inputFieldDateController.text = _fecha;
       });
     }
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropDown() {
+    List<DropdownMenuItem<String>> lista = new List();
+    _poderes.forEach((poder) {
+      lista.add(DropdownMenuItem(
+        child: Text(poder),
+        value: poder,
+      ));
+    });
+    return lista;
+  }
+
+  _crearComboBox() {
+    return DropdownButton(
+      value: _poderSeleccionado,
+      items: getOpcionesDropDown(),
+      onChanged: (value) {
+        setState(() {
+          _poderSeleccionado = value;
+        });
+      },
+    );
   }
 }
