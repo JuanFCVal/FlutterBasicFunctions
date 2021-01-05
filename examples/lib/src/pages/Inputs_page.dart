@@ -37,8 +37,11 @@ class _InputsPageState extends State<InputsPage> {
                 const EdgeInsets.only(top: 20, bottom: 10, right: 20, left: 20),
             child: _crearPassword(),
           ),
-          Divider(),
-          _crearDatePicker(context),
+          Padding(
+            padding:
+                const EdgeInsets.only(top: 20, bottom: 10, right: 20, left: 20),
+            child: _crearDatePicker(context),
+          ),
           Divider(),
           _crearPersona()
         ],
@@ -136,6 +139,7 @@ class _InputsPageState extends State<InputsPage> {
 
   Future _showDateSelection(BuildContext context) async {
     DateTime picked = await showDatePicker(
+        locale: Locale('es', 'ES'), //Cambiando el idioma del datepicker
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(1990),
